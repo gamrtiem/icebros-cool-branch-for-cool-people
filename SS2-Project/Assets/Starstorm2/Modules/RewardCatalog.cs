@@ -106,6 +106,7 @@ namespace SS2
                 missiles.AddPickups(SS2Content.Items.ArmedBackpack, 1);
                 missiles.AddPickups(RoR2Content.Items.Firework, 1);
                 tier.Add(missiles, .67f);
+                missiles.isAvailable = RequireDLC1;
                 tierDefs[5] = tier;
 
                 //150

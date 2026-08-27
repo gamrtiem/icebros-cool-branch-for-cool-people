@@ -487,6 +487,8 @@ namespace SS2
             public static EquipmentDef WhiteFlag;
 
             public static EquipmentDef SeismicOscillator;
+
+            public static EquipmentDef BallLightning;
         }
 
         public static class Buffs
@@ -719,6 +721,7 @@ namespace SS2
 
             public static BuffDef bdDUTDrift;
 
+            public static BuffDef bdBallLightningTimer;
         }
 
         public static class Elites

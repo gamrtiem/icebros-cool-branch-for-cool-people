@@ -1,4 +1,4 @@
-﻿using KinematicCharacterController;
+using KinematicCharacterController;
 using RoR2;
 using RoR2.Hologram;
 using SS2;
@@ -12,6 +12,8 @@ namespace EntityStates.Mimic
 {
     public class MimicChestDeath : GenericCharacterDeath
     {
+        private static string enterSoundString = "Play_UI_chest_unlock";
+
         GameObject lVFX;
         GameObject rVFX;
         bool hasDropped = false;
@@ -25,27 +27,7 @@ namespace EntityStates.Mimic
         {
             base.OnEnter();
 
-            // TODO: Idk if this works actually - Buns
-            // Deactivate hurtboxes so the corpse can't be targeted or procced off by damage sources (ATG, Ukulele, etc.)
-            if (characterBody && characterBody.hurtBoxGroup)
-            {
-                characterBody.hurtBoxGroup.hurtBoxesDeactivatorCounter++;
-            }
-
-            // TODO: I also have no clue if this works, need to test - Buns
-            // Force all non-Body ESMs (e.g. Weapon) to idle so the dead mimic stops attacking.
-            // GenericCharacterDeath only enters the Body ESM — other ESMs keep running.
-            // Without this, a Chirr-tamed mimic reverts to the Monster team on death
-            // (via ChirrFriendController.RemoveFriend) while its weapon ESM still fires,
-            // causing bullets to target the player.
-            foreach (EntityStateMachine esm in gameObject.GetComponents<EntityStateMachine>())
-            {
-                if (esm != outer)
-                {
-                    esm.SetNextStateToMain();
-                }
-            }
-
+            Util.PlaySound(enterSoundString, gameObject);
             PlayAnimation("Gesture, Override", "BufferEmpty");
 
             if(characterBody.modelLocator.modelTransform.TryGetComponent<CharacterModel>(out var cmodel))

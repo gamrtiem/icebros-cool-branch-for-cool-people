@@ -142,22 +142,29 @@ namespace SS2
             stormIcon.gameObject.SetActive(isStorm && !ti.isCharged);
             etherealIcon.gameObject.SetActive(isEthereal && !ti.isCharged);
 
-
-            Vector3 basePosition = teleBase.InverseTransformPoint(
-                ti._bossShrineCounter.targetTransform.position);
-
-            // Stack SS2 icons above any existing mountain shrine indicators.
-            float y = iconHeightOffset * ti._bossShrineCounter.indicatorCount;
+            // Buns: The new bossShrineCounter added support for multiple indicators and removed activeSelf param
+            // Buns: idk if this will work but need to fix the compile error to get SS2 to work so YOLO
+            // TODO: Might be the source of a bug!
+            if (ti._bossShrineCounter.indicatorCount == 0)
+            {
+                z += iconHeightOffset;
+            }
+            else if (ti._bossShrineCounter.indicatorCount >= 1)
+            {
+                z += iconHeightOffset * ti._bossShrineCounter.indicatorCount;
+            }
 
             if (isEthereal)
             {
-                etherealIcon.transform.localPosition = basePosition + Vector3.up * y;
-                y += iconHeightOffset;
+                etherealIcon.transform.localPosition = position + Vector3.forward * z;
+                z += iconHeightOffset;
             }
             if (isStorm)
             {
-                stormIcon.transform.localPosition = basePosition + Vector3.up * y;
+                stormIcon.transform.localPosition = position + Vector3.forward * z;
+                z += iconHeightOffset;
             }
+            
         }
 
         [Server]
@@ -166,13 +173,17 @@ namespace SS2
             if (upgrade == isStorm)
                 return;
             isStorm = upgrade;
-            if (upgrade) 
-                EffectManager.SimpleEffect(SS2Assets.LoadAsset<GameObject>("StormTeleporterUpgradeEffect", SS2Bundle.Events), ti.transform.position, Quaternion.identity, true);
+
             RpcUpgradeStorm(upgrade);
         }
         [ClientRpc]
         public void RpcUpgradeStorm(bool upgrade)
         {
+            if (upgrade)
+            {
+                EffectManager.SimpleEffect(SS2Assets.LoadAsset<GameObject>("StormTeleporterUpgradeEffect", SS2Bundle.Events), ti.transform.position, Quaternion.identity, false);
+            }
+
             Material stormOverlay = SS2Assets.LoadAsset<Material>("matStormTeleporterOverlay", SS2Bundle.Events);
             if (upgrade)
             {

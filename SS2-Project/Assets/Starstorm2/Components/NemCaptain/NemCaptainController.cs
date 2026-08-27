@@ -32,14 +32,18 @@ namespace SS2.Components
         {
             get
             {
-
                 GenericSkill gs = skillLocator?.FindSkillByFamilyName("sfNemCaptainDeck");
                 string skillName = gs?.skillDef?.skillName;
+                
+                SS2Log.Debug($"generic skill null ? {gs == null}");
+                SS2Log.Debug($"skillName null ? {skillName == null}");
+                
                 if (skillName == null)
                 {
                     deckFound = false;
                     return null;
                 }
+                
                 switch (skillName)
                 {
                     default :
@@ -860,7 +864,7 @@ namespace SS2.Components
             int count = list.Count;
             while (count > 1)
             {
-                int swapWith = UnityEngine.Random.RandomRangeInt(0, count);
+                int swapWith = Random.Range(0, count);
                 count--;
                 T value = list[count];
                 list[count] = list[swapWith];

@@ -297,7 +297,7 @@ namespace EntityStates.Events
                 placementMode = DirectorPlacementRule.PlacementMode.Approximate;
             }
 
-            var ballSpawnCard = SS2Assets.LoadAsset<InteractableSpawnCard>("iscBallLightningPickup", SS2Bundle.Events);
+            var ballSpawnCard = SS2Assets.LoadAsset<InteractableSpawnCard>("iscBallLightningPickup", SS2Bundle.Equipments);
             DirectorCore.instance.TrySpawnObject(new DirectorSpawnRequest(ballSpawnCard, new DirectorPlacementRule
             {
                 minDistance = ballMinSpawnDistance,

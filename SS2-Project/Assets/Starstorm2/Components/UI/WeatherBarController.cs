@@ -358,7 +358,8 @@ namespace SS2.UI
                     });
                     if (newSegmentIndex > 0)
                     {
-                        Util.PlaySound(onDifficultyChangeSoundString, RoR2Application.instance.gameObject);
+                        //EVIL sound ,. 
+                        //Util.PlaySound(onDifficultyChangeSoundString, RoR2Application.instance.gameObject);
                     }
                 }
             }

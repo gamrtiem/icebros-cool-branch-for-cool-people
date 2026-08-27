@@ -12,7 +12,7 @@ namespace SS2.Components
             if (NetworkServer.active && alive && TeamComponent.GetObjectTeam(other.gameObject) == teamFilter.teamIndex)
             {
                 CharacterBody body = other.GetComponent<CharacterBody>();
-                if (body)
+                if (body && body.inventory?.currentEquipmentIndex == EquipmentIndex.None)
                 {
                     body.OnPickup(CharacterBody.PickupClass.Item);
 

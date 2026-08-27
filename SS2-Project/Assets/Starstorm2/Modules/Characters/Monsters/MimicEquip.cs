@@ -184,10 +184,5 @@ namespace SS2.Monsters
 		        masterGameObject.GetComponent<CharacterMaster>().inventory.SetEquipmentIndexForSlot(EquipmentCatalog.equipmentDefs.FirstOrDefault(def => def.name == args.GetArgString(0)).equipmentIndex, 0);
 	        }
         }
-        
-        public override bool IsAvailable(ContentPack contentPack)
-        {
-	        return false;
-        }
 	}
 }

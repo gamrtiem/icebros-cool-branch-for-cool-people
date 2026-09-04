@@ -83,7 +83,7 @@ namespace EntityStates.MimicEquip
                 var impact = SS2.Monsters.MimicEquip.rechestVFX;
                 EffectData effectData = new EffectData { origin = characterBody.corePosition };
                 effectData.SetNetworkedObjectReference(impact);
-                EffectManager.SpawnEffect(impact, effectData, transmit: true);
+                EffectManager.SpawnEffect(impact, effectData, transmit: false);
 
                 PlayAnimation("Body", "IntermediateIdle");
 
